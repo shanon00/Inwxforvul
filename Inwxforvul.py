@@ -38,8 +38,9 @@ def setup_logging() -> None:
 )
 def get_brucefeIix_url() -> List[str]:
     """获取BruceFeIix的每日文章URL"""
-    current_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+    current_date = (datetime.now()).strftime("%Y-%m-%d")
     url = f"https://raw.githubusercontent.com/BruceFeIix/picker/refs/heads/master/archive/daily/{current_date[:4]}/{current_date}.md"
+    print(url)
     response = requests.get(url, headers=HEADERS, timeout=10)
     response.raise_for_status()
     urls = re.findall(
@@ -139,7 +140,6 @@ def read_json() -> Dict[str, str]:
     except Exception as e:
         logging.error(f"读取 {DATA_FILE} 失败: {e}")
         return {}
-
 
 def write_json(data: Dict[str, str]) -> None:
     """写入JSON文件"""
